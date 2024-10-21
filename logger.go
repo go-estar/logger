@@ -2,7 +2,6 @@ package logger
 
 import (
 	"strings"
-	"time"
 )
 
 const (
@@ -87,7 +86,6 @@ func NewField(key string, value interface{}) *Field {
 
 type Logger interface {
 	Level() string
-	Field(key string, value interface{}) *Field
 	Debug(msg string, fields ...*Field)
 	Info(msg string, fields ...*Field)
 	Warn(msg string, fields ...*Field)
@@ -101,17 +99,4 @@ func MapToFields(data map[string]interface{}) []*Field {
 		fields = append(fields, &Field{key, value})
 	}
 	return fields
-}
-
-func WithTime(data ...*Field) []*Field {
-	var timeExists bool
-	for _, field := range data {
-		if field.Key == "time" && field.Value != nil {
-			timeExists = true
-		}
-	}
-	if !timeExists {
-		data = append(data, NewField("time", time.Now()))
-	}
-	return data
 }

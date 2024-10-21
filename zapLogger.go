@@ -163,10 +163,6 @@ func ZapFields(data ...*Field) []zap.Field {
 	return fields
 }
 
-func ZapFieldsWithTime(data ...*Field) []zap.Field {
-	return ZapFields(WithTime(data...)...)
-}
-
 type ZapLogger struct {
 	level  string
 	logger *zap.Logger
@@ -175,21 +171,18 @@ type ZapLogger struct {
 func (l *ZapLogger) Level() string {
 	return l.level
 }
-func (l *ZapLogger) Field(key string, value interface{}) *Field {
-	return NewField(key, value)
-}
 func (l *ZapLogger) Debug(msg string, fields ...*Field) {
-	l.logger.Debug(msg, ZapFieldsWithTime(fields...)...)
+	l.logger.Debug(msg, ZapFields(fields...)...)
 }
 func (l *ZapLogger) Info(msg string, fields ...*Field) {
-	l.logger.Info(msg, ZapFieldsWithTime(fields...)...)
+	l.logger.Info(msg, ZapFields(fields...)...)
 }
 func (l *ZapLogger) Warn(msg string, fields ...*Field) {
-	l.logger.Warn(msg, ZapFieldsWithTime(fields...)...)
+	l.logger.Warn(msg, ZapFields(fields...)...)
 }
 func (l *ZapLogger) Error(msg string, fields ...*Field) {
-	l.logger.Error(msg, ZapFieldsWithTime(fields...)...)
+	l.logger.Error(msg, ZapFields(fields...)...)
 }
 func (l *ZapLogger) Fatal(msg string, fields ...*Field) {
-	l.logger.Fatal(msg, ZapFieldsWithTime(fields...)...)
+	l.logger.Fatal(msg, ZapFields(fields...)...)
 }
