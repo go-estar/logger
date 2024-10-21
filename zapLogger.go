@@ -61,7 +61,7 @@ func NewZap(name string, level string, opts ...Option) Logger {
 
 func ZapEncoder() zapcore.EncoderConfig {
 	return zapcore.EncoderConfig{
-		//TimeKey:        "time",
+		TimeKey:        "time",
 		LevelKey:       "level",
 		NameKey:        "logger",
 		CallerKey:      "caller",
